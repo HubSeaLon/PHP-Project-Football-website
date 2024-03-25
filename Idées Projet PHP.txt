@@ -1,4 +1,7 @@
-Projet php : 
+Idées Projet php : 
+
+Nom : Squad Manager, Coach Football, 
+     
 
 Site web permettant de gérer une équipe de football en tant qu'entraineur
 (utiliser des gabarits, TBS)
