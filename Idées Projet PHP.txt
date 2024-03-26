@@ -25,42 +25,26 @@ Base de données :
 Table Utilisateur :
 Champ : id_utilisateur (clé primaire), nom_utilisateur, mot_de_passe, email, etc.
 
-
 Table Équipe :
 Champ : id_equipe (clé primaire), nom_equipe, ligue (clé étrangère).
-
 
 Table Joueur :
 Champ : nom_joueur(clé primaire), id_equipe (clé étrangère vers la table Équipe), nom, prénom, poste (attaquant, milieu ou défenseur)
 
-
 Table Staff :
 Champ : id_staff (clé primaire), id_equipe (clé étrangère vers la table Équipe), nom, prénom, rôle 
-
 
 Table Match :
 Champ : id_match (clé primaire), id_equipe_hote (clé étrangère vers la table Équipe), id_equipe_visiteur (clé étrangère vers la table Équipe), date_match, etc. ajouter score équipe 1 et équipe 2. 
 
-Table Tournoi : 
-Champ : id_tournoi (clé primaire), nom_tournoi
-
-Table Participe_tournoi :
-Champ : id_tournoi (clé étrangère), id_equipe (clé étrangère),  
-
-Table Ligue :
-Champ : id_ligue (clé primaire), nom_ligue, pays_ligue
-
 Table Participation :
-Champ : id_participation (clé primaire), id_match (clé étrangère vers la table Match), id_joueur (clé étrangère vers la table Joueur), statut (titulaire, remplaçant), etc.
-
+Champ : id_match (clé étrangère vers la table Match), id_joueur (clé étrangère vers la table Joueur), statut (titulaire, remplaçant), etc.
 
 Table Infirmerie :
 Champ : id_infirmerie (clé primaire), id_joueur (clé étrangère vers la table Joueur), date_blessure, type_blessure, etc.
 
-
 Table Statistiques_joueur :
-Champ : id_stat_joueur (clé primaire), id_joueur (clé étrangère vers la table Joueur), buts, passes_decisives, carton_jaune, carton_rouge, etc.
-
+Champ : id_stat_joueur (clé primaire), id_joueur (clé étrangère vers la table Joueur), buts, passes_decisives, carton_jaune, carton_rouge, nombre_match (seulmement titulaire).
 
 Table Statistiques_equipe :
 Champ : id_stat_equipe (clé primaire), id_equipe (clé étrangère vers la table Équipe), victoires, défaites, buts_marqués, points, etc.
