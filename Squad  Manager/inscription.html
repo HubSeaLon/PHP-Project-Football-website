@@ -51,7 +51,7 @@
         <nav class="navbar navbar-expand-lg custom_nav-container ">
           <a class="navbar-brand" href="controleur.php?page=index">
             <span>
-              Squad Manager
+              Squad Manager [onshow.connexion]
             </span>
           </a>
         </nav>
@@ -62,12 +62,12 @@
     <!-- login section-->
     <section class ="login-section">
         <div class ="form-container">
-          <form action="[onshow.cible]" method="post">
+          <form action="controleur.php?page=inscription" method="post">
             <fieldset>
               <legend> <b>S'inscrire</b> </legend>
                 <div class="login-container">
                   <label for="login" id="login"><b>Login</b></label>
-                  <input type="text" id="id_log" name="login" placeholder="Votre mail">  
+                  <input type="text" id="id_log" name="login" placeholder="Votre mail" required>  
                
                   <label for="passwd" id="mdp"><b>Mot de passe (8 caractères min)</b></label>
                   <input type="password" id="id_pwd" name="passwd"  placeholder="Votre mot de passe" minlength="8" required>
@@ -75,7 +75,7 @@
                   <label for="verif" id="verif"><b> Vérification Mot de passe </b></label>
                   <input type="password" id="verif" name="verif" placeholder="Rentrez meme mot de passe" minlength="8" required>
 
-                  <a href="login.html" id="inscription">Se connecter</a>   <br>          
+                  <a href="controleur.php?page=login" id="inscription">Se connecter</a>   <br>          
                   <input type="submit" id="id_val" value="Valider">
                 </div>
             </fieldset>

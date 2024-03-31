@@ -59,20 +59,20 @@
     </header>
   </div>
 
-
+  <p>[onshow.etatConnexion]</p>
 
     <!-- login section-->
     <section class ="login-section">
         <div class ="form-container">
-          <form action="[onshow.cible]" method="post">
+          <form action="controleur.php?page=login" method="post">
             <fieldset>
               <legend> <b>Se connecter</b> </legend>
                 <div class="login-container">
                   <label for="login" id="login"><b>Login</b></label>
-                  <input type="text" id="id_log" name="login" placeholder="Votre mail">  
+                  <input type="text" id="id_log" name="login" placeholder="Votre mail" required>  
                
                   <label for="passwd" id="mdp"><b>Mot de passe</b></label>
-                  <input type="password" id="id_pwd" name="passwd" placeholder="Votre mot de passe">
+                  <input type="password" id="id_pwd" name="passwd" placeholder="Votre mot de passe" required>
 
                   <a href="controleur.php?page=inscription" id="inscription">S'inscrire</a>   <br>          
                   <input type="submit" id="id_val" value="Valider">

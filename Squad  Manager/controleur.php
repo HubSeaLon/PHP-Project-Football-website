@@ -7,15 +7,9 @@
     require("connect.inc.php");
 
     $tbs = new clsTinyButStrong;
-    $cible = $_SERVER["PHP_SELF"];
+    $connexion ="";
 
-    try {
-        $c = new PDO("mysql:host=$host; dbname=$dbname", $login, $password);
-    } catch(PDOException $erreur) {
-        $etatConnexion = $erreur->getMessage();
-    }
-
-
+   
     if (isset($_GET['page'])){
         $page = $_GET['page'];
         switch ($page){
@@ -38,6 +32,10 @@
                 $tbs->LoadTemplate('login.html');
                 break;
             case 'inscription':
+                if (isset($_POST["login"])) {                 
+                   nouveauID($_POST["login"], $_POST["passwd"], $_POST["verif"]);
+                }   
+
                 $tbs->LoadTemplate('inscription.html');
                 break;
             default:
