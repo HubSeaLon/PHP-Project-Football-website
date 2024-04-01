@@ -1,0 +1,11 @@
+Ce qu'il nous reste à faire :
+
+-changer dynamiquement menu navigation selon user connecté ou non (Se connecter / Mon profil)
+-page Mon Profil:
+  -afficher ses infos
+  -modifier, ajouter via formulaire 
+  -fonctionnalité de deconnexion
+
+-page gérer Son Equipe:
+  -créer son équipe si jamais pas encore fait (via nouvelle vue pour créer son équipe grace form, et ensuite redirigé vers page pour choisir son équipe à gérer)
+  -choisir son équipe à gérer avec qlq infos affichés (nom, date création, ligue, etc);
