@@ -32,10 +32,11 @@
   <!-- responsive style -->
   <link href="css/responsive.css" rel="stylesheet" />
   <link href="css/login.css" rel="stylesheet"/>
+  <script type="text/javascript" src="js/code.js"></script>
 
 </head>
 
-<body class="sub_page">
+<body class="sub_page" onload="afficherOptions()">
 
   <div class="hero_area">
 
@@ -59,58 +60,39 @@
     </header>
   </div>
 
-  <p>[onshow.etatConnexion]</p>
+  
 
     <!-- login section-->
     <section class ="login-section">
         <div class ="form-container">
-          <form action="controleur.php?page=login" method="post">
-            <fieldset>
-              <legend> <b>Mes informations personnelles</b> </legend>
-                <div class="login-container">
-                  <label for="identifiant" id="identifiant"><b>Identifiant</b></label>
-                  <input type="text" id="identifiant" name="plogin" value="SQL pour récuperer l'identifiant" required>  
-               
-                  <label for="passwd" id="mdp"><b>Mot de passe actuel</b></label>
-                  <input type="password" id="id_pwd" name="ppasswd" value="SQL pour récuperer" required>
+            <form action="controleur.php?page=creerEquipe" method="post">
+                <fieldset>
+                    <legend> <b>Mon équipe</b></legend>
+                        <div class="login-container">
+                            <label for="Nom équipe" id="nom"><b>Nom équipe</b></label>
+                            <input type="text" id="nom" name="nom" placeholder="Le nom de votre équipe" required>
 
-                  <label for="passwd" id="mdp"><b>Nouveau mot de passe</b></label>
-                  <input type="password" id="id_pwd" name="ppasswd" placeholder="Votre nouveau mot de passe" minlength="8" required>
+                            <label for="pays" id="pays"><b>Pays</b></label>
+                            <select id="selectPays" name="pays" onchange="afficherOptions()"> 
+                                <option>Angleterre</option>
+                                <option>Espagne</option>
+                                <option>Allemagne</option>
+                                <option>Italie</option>
+                                <option>France</option>
+                            </select>
 
-                  <label for="verif" id="verif"><b> Vérification Mot de passe </b></label>
-                  <input type="password" id="verif" name="pverif" placeholder="Rentrez meme mot de passe" minlength="8" required>
+                            <label for="ligue" id="ligue"><b>Ligue</b></label>
+                            <select id="ligueOptions" name="ligue">
+                                    
+                            </select>
 
-                  <label for="login" id="login"><b>Nom</b></label>
-                  <input type="text" id="id_nom" name="pnom" placeholder="Votre Nom" required>  
-
-                  <label for="login" id="login"><b>Prenom</b></label>
-                  <input type="text" id="id_prenom" name="pprenom" placeholder="Votre prénom" required>  
-
-                  <label for="login" id="login"><b>Date de naissance</b></label>
-                  <input type="date" id="id_naiss" name="pnaiss" placeholder="Votre date de naissance" required>  
-
-                  <label for="login" id="login"><b>Numero de rue</b></label>
-                  <input type="number" id="id_num_rue" name="pnum_rue" placeholder="Votre numero de rue" required>  
-
-                  <label for="login" id="login"><b>Rue</b></label>
-                  <input type="text" id="id_rue" name="prue" placeholder="Le nom de votre rue" required>  
-
-                  <label for="login" id="login"><b>cp</b></label>
-                  <input type="number" id="id_cp" name="pcp" placeholder="Votre code postal" required>  
-
-                  <label for="login" id="login"><b>Ville</b></label>
-                  <input type="text" id="id_ville" name="pville" placeholder="Votre Ville" required>  
-         
-                  <input type="submit" id="id_val" value="Valider">
-
-                 
-                </div>
-            </fieldset>
-          </form>
+                            <input type="submit" id="id_val" value="Créer mon équipe">               
+                        </div>
+                </fieldset>
+            </form>
+            
         </div>
     </section> 
-
-    <a href="controleur.php?page=deconnexion"><button>Se déconnecter</button></a>
 
           
 

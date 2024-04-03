@@ -32,6 +32,7 @@
   <!-- responsive style -->
   <link href="css/responsive.css" rel="stylesheet" />
   <link href="css/login.css" rel="stylesheet"/>
+  <script type="text/javascript" src="js/code.js"></script>
 
 </head>
 
@@ -61,14 +62,29 @@
 
   
 
-    <!-- login section-->
     <section class ="equipe-section">
         <div class ="equipe-container">
-          <p>[onshow.message]</p>
-          <p>[onshow.id_entraineur]</p>
-          <p> <button> <a href="controleur.php?page=creerEquipe">Créer son équipe</a></button></p>
+          <h2>Mon équipe :</h2>
+          <p>[onshow.nomEquipe]</p>
+          <p>[onshow.paysEquipe]</p>
+          <p>[onshow.ligue]</p>
+
+          <button id="modifierEquipe" name="modifier" onclick="modifierEquipe()">Modifier le nom</button>
+          <button id="supprimerEquipe" name="supprimer" onclick="supprimerEquipe()">Supprimer l'équipe</button>
         </div>
-    </section> 
+    </section>
+    
+    <section class ="modifEquipe-section">
+        <div class ="equipe-container" id="champsForm">
+            
+        </div>
+    </section>
+
+    <section class ="suppEquipe-section">
+        <div class="equipe-container" id="suppForm">
+            
+        </div>
+    </section>
 
           
 
