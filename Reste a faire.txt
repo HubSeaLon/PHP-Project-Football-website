@@ -8,7 +8,7 @@ Ce qu'il nous reste à faire :
 
 -page gérer Son Equipe:
   -créer son équipe si jamais pas encore fait (via nouvelle vue pour créer son équipe grace form, et ensuite redirigé vers page pour choisir son équipe à gérer) -> Fait 
-  -choisir son équipe à gérer avec qlq infos affichés (nom, date création, ligue, etc) et pouvoir modifier les infos (créer un bouton qui affichera un formulaire à coté pour modifier (utiliser Js) -> En cours 
+  -choisir son équipe à gérer avec qlq infos affichés (nom, date création, ligue, etc) et pouvoir modifier les infos (créer un bouton qui affichera un formulaire à coté pour modifier (utiliser Js) -> Fait  
   -menu de navigation sur la base du site avec les différentes fonctionnalités (créer nouvelle vue pour chaque): -> En cours 
     -gérer joueurs (supprimer, ajouter, modifier)
     -gérer staff (supprimer, ajouter, modifier)
