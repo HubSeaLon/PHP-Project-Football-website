@@ -16,3 +16,7 @@ Ce qu'il nous reste à faire :
     -afficher statistiques joueurs, et équipe
     -gérer les matchs (afficher match à venir, créer)
       -convoquer les joueurs si création match
+
+-chose à améliorer :
+  -menu de navigation (couleur bleu sur la page actuelle) -> fait 
+  
