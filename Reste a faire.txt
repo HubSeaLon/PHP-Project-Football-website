@@ -14,7 +14,7 @@ Ce qu'il nous reste à faire :
     -gérer staff (supprimer, ajouter, modifier)
     -gérer blessures (supprimer, ajouter, modifier)
     -afficher statistiques joueurs, et équipe
-    -gérer les matchs (afficher match à venir, créer)
+    -gérer les matchs (afficher match à venir, créer) + (pouvoir utiliser cette fonctionalité seulement quand il y a suffisament de joueur (15 par ex)
       -convoquer les joueurs si création match
 
 -chose à améliorer :
