@@ -30,12 +30,13 @@ function afficherOptions(){
 function modifierEquipe(){
     let form = '';
     
+    annulerSupp();
+    
     form += "<form action='controleur.php?page=modifierEquipe' method='post'> <fieldset>";
-    form += "<legend> <b>Modifier les informations de mon équipe</b> </legend>";
-    form += "<label for='nomEquipe' id='nom' name='nom'><b>Nom</b></label>";
+    form += "<label for='nomEquipe' id='nom' name='nom'><b>Modifier les informations de mon équipe</b></label>";
     form += "<input type='text' id='nom' name='nomEquipe' placeholder='Nouveau nom de l&#39;équipe' required>";
     form += "<input type='submit' id='id_val' value='Changer le nom'>";
-    form += "<input type='button' id='id_val' value='Annuler' onclick='annuler()'></button>";
+    form += "<input type='button' id='id_val' value='Annuler' onclick='annulerModif()'></button>";
     form += "</fieldset> </form>"
 
     document.getElementById("champsForm").innerHTML = form;
@@ -44,15 +45,23 @@ function modifierEquipe(){
 function supprimerEquipe(){
     let form = '';
 
+    annulerModif();
+    
     form += "<form action='controleur.php?page=supprimerEquipe' method='post'>";
     form += "<label for='etre-sur' id='sur' name='sur'><b>Etes-vous sur de supprimer votre équipe ?</b>";
     form += "<input type='submit' id='id_val' value='Oui'>";
-    form += "<input type='button' id='id_val' Value='Non' onclick='annuler()'></button>";
+    form += "<input type='button' id='id_val' Value='Non' onclick='annulerSupp()'></button>";
     form += "</form>";
 
     document.getElementById('suppForm').innerHTML = form;
 }
 
-function annuler(){
-    location.reload();
+function annulerModif(){
+    let form = '';
+    document.getElementById('champsForm').innerHTML = form;
+}
+
+function annulerSupp(){
+    let form = '';
+    document.getElementById('suppForm').innerHTML = form;
 }
