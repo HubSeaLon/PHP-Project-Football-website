@@ -1,15 +1,18 @@
 <?php
 
 
+
+// Classe équipe qui va gérer tout ce qui est lié à la gestion de l'équipe de l'utilisateur
 class Equipe {
 
-    private $login;
-    private $pdo;
-    private $tbs;
-    private $data;
 
-    private $message, $id_entraineur;
-    private $nom, $pays, $ligue;
+    protected $login; // Son login ($_SESSION['login'])
+    protected $pdo; // Objet pour accéder base de données
+    protected $tbs; // Objet TBS
+    protected $data_equipe; // Data pour regroupper données de l'équipe
+
+    protected $messageEquipe, $id_entraineur;
+    protected $nom_equipe, $pays, $ligue;
 
     function __construct($p_login, $p_pdo, $p_tbs){
         $this->login = $p_login;
@@ -18,7 +21,7 @@ class Equipe {
     }
 
     public function getMessage(){
-        return $this->message;
+        return $this->messageEquipe;
     }
 
     public function getIdEntraineur(){
@@ -34,7 +37,6 @@ class Equipe {
 
     // Fonction pour vérifier si l'utilisateur a au moins 1 équipe
     public function verif(){
-
         $this->idEntraineur();
 
         $req = $this->pdo->prepare("SELECT * FROM equipe WHERE id_entraineur = :id_entraineur");
@@ -42,11 +44,12 @@ class Equipe {
         $result = $req->rowCount();
 
         if ($result == 1){
+            $aEquipe = True;
             $this->preparer();
             header("Location: controleur.php?page=afficherEquipe");
             exit;
         } else {
-            $this->message = "Commencez à créer une équipe !";
+            $this->messageEquipe = "Commencez à créer une équipe !";
         } 
     }
 
@@ -82,14 +85,14 @@ class Equipe {
 
             $req2 = $this->pdo->prepare("SELECT nom_equipe, pays, ligue FROM equipe WHERE id_entraineur = :id_entraineur");
             $req2->execute(['id_entraineur' => $this->id_entraineur]);
-            $this->data = $req2->fetchAll();
+            $this->data_equipe = $req2->fetchAll();
 
-            $this->nom = array();
+            $this->nom_equipe = array();
             $this->pays = array();
             $this->ligue = array();
 
-            foreach($this->data as $ligne){      
-                $this->nom[] = $ligne['nom_equipe'];
+            foreach($this->data_equipe as $ligne){      
+                $this->nom_equipe[] = $ligne['nom_equipe'];
                 $this->pays[] = $ligne['pays'];
                 $this->ligue[] = $ligne['ligue'];
             }
@@ -102,7 +105,7 @@ class Equipe {
     }
 
     public function getNomEquipe(){
-        return $this->nom[0];
+        return $this->nom_equipe[0];
     }
 
     public function getPaysEquipe(){
@@ -114,4 +117,27 @@ class Equipe {
     }
 }
 
+class Joueurs extends Equipe {
+    protected $num;
+    protected $nom_joueur, $prenom_joueur, $nationalite, $poste;
+
+    // Faire constructeur
+    // Faire fonction : ajouterJoueur(), afficherJoueurs(), supprimerJoueur(), modifierJoueur(), 
+}
+
+class Staff extends Equipe {
+    private $nom_staff, $prenom_staff, $role;
+
+    // Faire constructeur
+    // Faire fonction : ajouterStaff(), afficherStaff(), supprimerStaff(), modifierStaff(),
+}
+
+class Blessure extends Joueurs {
+    private $date_blessure, $type_blessure, $duree_blessure;
+
+    // Faire conconstructeur
+    // Faire fonction : ajouterBlessure(), afficherBlessure(), modifierBlessure(), supprimerBlessure();
+} 
+
+// Class match et participation
 ?>

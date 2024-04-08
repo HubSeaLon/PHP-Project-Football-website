@@ -64,63 +64,24 @@
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class=""> </span>
         </button>
-
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav  ">
-            <li class="nav-item active">
-              <a class="nav-link" href="[onshow.gererEquipe]">Equipe</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="[onshow.gererJoueur]">Joueurs <span class="sr-only"></span></a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="[onshow.gererStaff]">Staff</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="[onshow.gererBlessure]">Blessure</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="[onshow.stats]">Statistiques</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="[onshow.gererMatchs]">Matchs</a>
-            </li>
-    
-          </ul>
-        </div>
+       
       </nav>
     </div>
   </header>
 </div>
   <!-- end header section -->
 
+<div class = "message-container">
+    <p>[onshow.message]</p>
+
+    <button> <a href="controleur.php?page=index">Retour à l'acueil</a></button>
+
+</div>
+  
+  
+
 
   
-   <!-- Créer un menu de navigation avec onshow seulement si il y a une équipe -->
-  <section class ="equipe-section">
-        <div class ="equipe-container">
-          <h2>Mon équipe :</h2>
-          <p>[onshow.nomEquipe]</p>
-          <p>[onshow.paysEquipe]</p>
-          <p>[onshow.ligue]</p>
-
-          <button id="modifierEquipe" name="modifier" onclick="modifierEquipe()">Modifier le nom</button>
-          <button id="supprimerEquipe" name="supprimer" onclick="supprimerEquipe()">Supprimer l'équipe</button>
-        </div>
-  </section>
-    
-  <section class ="modifEquipe-section">
-        <div class ="equipe-container" id="champsForm">
-            <!-- Code javacript -->   
-        </div>
-  </section>
-
-  <section class ="suppEquipe-section">
-        <div class="equipe-container" id="suppForm">
-            <!-- Code javacript -->        
-        </div>
-  </section>
-
           
 
  

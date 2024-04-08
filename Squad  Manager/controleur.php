@@ -9,18 +9,16 @@
     require("connect.inc.php");
 
     $tbs = new clsTinyButStrong;
-    $connexion = '';
-    $menu_profil_ou_login = '';
-    $nom_menu_profil_ou_login = '';
- 
 
+   
+  
 
-
+    // Gestion Session
     if (isset($_SESSION['login'])){
         $menu_profil_ou_login = "controleur.php?page=profil";
         $nom_menu_profil_ou_login = "Mon profil";
 
-        $eq = new Equipe($_SESSION['login'], $c, $tbs); //Objet pour la classe Equipe
+        $eq = new Equipe($_SESSION['login'], $c, $tbs); //Création Objet $eq (équipe) pour la classe Equipe
 
         echo  "Connecté en tant que ". $_SESSION['login'];
     } else {
@@ -28,10 +26,15 @@
         $nom_menu_profil_ou_login = "Se connecter / S'inscrire";
         echo "Non connecté";
     }
+    // Fin gestion session
 
+
+    // Navigation des pages selon l'url  
     if(isset($_GET['page'])){
         $page = $_GET['page'];
         switch ($page){
+
+            // Cas des pages sans traitements serveur
             case 'index':
                 $tbs->LoadTemplate('index.html');
                 break;
@@ -44,38 +47,92 @@
             case 'equipe':
                 $tbs->LoadTemplate('Notre equipe.html');
                 break;
-            case 'gererEquipe':
-                
+            // Fin cas des pages sans traitements serveur 
+
+            // Cas Gestion Equipe :
+            case 'gererEquipe': 
                 if(isset($_SESSION['login'])){          // Vérifier si session                     
                     $eq->verif();  // Appel fonction verif pour savoir existance d'une équipe 
-                    $message = $eq->getMessage();  
+
+                    // Cas si pas d'équipe 
+                    $messageEquipe = $eq->getMessage();  
                     $id_entraineur = $eq->getIdEntraineur();
                     
                     $tbs->LoadTemplate('gererEquipe.html');
 
                 } else $tbs->LoadTemplate('login.html');
-
                 break;
-            case 'creerEquipe':
-            
+
+            case 'creerEquipe':         
                 if (isset($_POST["nom"]) && isset($_POST["pays"]) && isset($_POST["ligue"])){
-                    $eq->creer($_POST["nom"], $_POST['pays'], $_POST['ligue']);  
+                    $eq->creer($_POST["nom"], $_POST['pays'], $_POST['ligue']);  // Appel fonction creer() de la classe Equipe pour créer une équipe
                 }
             
-                // Appel fonction pour créer équipe
                 $tbs->LoadTemplate("creerEquipe.html");
                 break;
             
             case 'afficherEquipe': // Page qui affiche l'équipe de l'user
-                $eq->preparer();  
+                $eq->preparer();
                 $nomEquipe = $eq->getNomEquipe();   // Accès aux infos de l'équipe 
                 $paysEquipe = $eq->getPaysEquipe();
                 $ligue = $eq->getLigue();
 
-                $tbs->LoadTemplate('afficherEquipe.html');
+                if (!empty($nomEquipe) && !empty($paysEquipe) && !empty($ligue)){
+                    $gererEquipe = 'controleur.php?page=gererEquipe';
+                    $gererJoueur = 'controleur.php?page=gererJoueur';
+                    $gererStaff = 'controleur.php?page=gererStaff';
+                    $gererBlessure = 'controleur.php?page=gererBlessure';
+                    $stats = 'controleur.php?page=stats';                   
+                    $gererMatchs = 'controleur.php?page=gererMatchs';
+                    $tbs->LoadTemplate('afficherEquipe.html');
+                } else {
+                    $message = 'Veuilez créer une équipe pour utiliser cette fonctionnalité.';
+                    $tbs->LoadTemplate('message.html');
+                }
+                
                 break;
+            case 'supprimerEquipe': 
+                $eq->idEntraineur();
+                $id_entraineur = $eq->getIdEntraineur();
                     
+                $reqSupp = $c->prepare("DELETE FROM equipe WHERE id_entraineur = :id_entraineur");
+                $reqSupp->execute(['id_entraineur' => $id_entraineur]);
+                    
+                header("Location: controleur.php?page=gererEquipe");
+                exit;
     
+            case 'modifierEquipe':
+                $eq->idEntraineur();
+                  
+                $id_entraineur = $eq->getIdEntraineur();
+                $eq = $c->prepare("UPDATE equipe SET nom_equipe = :nom_equipe WHERE id_entraineur = :id_entraineur");
+                $nomEquipe = $_POST['nomEquipe']; 
+                $eq->execute([
+                    'nom_equipe' => $nomEquipe,
+                    'id_entraineur' => $id_entraineur
+                ]);
+    
+                header("Location: controleur.php?page=afficherEquipe");
+                exit;
+            
+            case 'gererJoueur':
+                $tbs->LoadTemplate('gererJoueur.html');
+                break;
+            case 'gererStaff':
+                $tbs->LoadTemplate('gererStaff.html');
+                break;
+            case 'gererBlessure':
+                $tbs->LoadTemplate('gererBlessure.html');
+                break;
+            case 'stats':
+                $tbs->LoadTemplate('stats.html');
+                break;
+            case 'gererMatchs':
+                $tbs->LoadTemplate('gererMatchs.html');
+                break;
+            // Fin Gestion Equipe 
+                    
+            // Gestion Login / Inscription 
             case 'login':
                 if (isset($_POST["llogin"])){
                     connexionID($_POST["llogin"], $_POST['lpasswd'], $c);
@@ -98,38 +155,13 @@
 
             case 'deconnexion':
                 session_destroy();
-        
-                $tbs->LoadTemplate('index.html');
-                $page = $_SERVER['PHP_SELF'];
-                $sec = "0.001";
-                header("Refresh: $sec; url=$page");
+                header("Location: controleur.php?page=index");
+                exit;
             
-            case 'supprimerEquipe': // A corriger
-                $eq->idEntraineur();
-                $id_entraineur = $eq->getIdEntraineur();
-                
-                $reqSupp = $c->prepare("DELETE FROM equipe WHERE id_entraineur = :id_entraineur");
-                $reqSupp->execute(['id_entraineur' => $id_entraineur]);
-                
-                header("Location: controleur.php?page=gererEquipe");
-                exit;
-
-            case 'modifierEquipe':
-                $eq->idEntraineur();
-              
-                $id_entraineur = $eq->getIdEntraineur();
-                $eq = $c->prepare("UPDATE equipe SET nom_equipe = :nom_equipe WHERE id_entraineur = :id_entraineur");
-                $nomEquipe = $_POST['nomEquipe']; 
-                $eq->execute([
-                    'nom_equipe' => $nomEquipe,
-                    'id_entraineur' => $id_entraineur
-                ]);
-
-                header("Location: controleur.php?page=afficherEquipe");
-                exit;
-               
             default:
-                $tbs->LoadTemplate('index.html');   
+                $message = 'Page introuvable';
+                $tbs->LoadTemplate('message.html');   
+                break;
         } 
     } else {
         $tbs->LoadTemplate('index.html');

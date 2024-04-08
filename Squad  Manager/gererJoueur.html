@@ -67,10 +67,10 @@
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav  ">
-            <li class="nav-item active">
+            <li class="nav-item">
               <a class="nav-link" href="[onshow.gererEquipe]">Equipe</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item active">
               <a class="nav-link" href="[onshow.gererJoueur]">Joueurs <span class="sr-only"></span></a>
             </li>
             <li class="nav-item">
@@ -98,30 +98,34 @@
   
    <!-- Créer un menu de navigation avec onshow seulement si il y a une équipe -->
   <section class ="equipe-section">
-        <div class ="equipe-container">
-          <h2>Mon équipe :</h2>
-          <p>[onshow.nomEquipe]</p>
-          <p>[onshow.paysEquipe]</p>
-          <p>[onshow.ligue]</p>
+        <div class ="joueurs-container">
+            <h4>Liste des joueurs</h4>
+            <table>
+                <tr>
+                    <th>Numéro</th>
+                    <th>Nom</th>
+                    <th>Prénom</th>
+                    <th>Nationalité</th>
+                    <th>Poste</th>
+                </tr>
 
-          <button id="modifierEquipe" name="modifier" onclick="modifierEquipe()">Modifier le nom</button>
-          <button id="supprimerEquipe" name="supprimer" onclick="supprimerEquipe()">Supprimer l'équipe</button>
+                <tr>
+                    <td>[numero.val;block=tr]</td>
+                    <td>[nom.val;block=tr]</td>
+                    <td>[prenom.val;block=tr]</td>
+                    <td>[nationalite].val;block=tr]</td>
+                    <td>[poste.val;block=tr]</td>
+                </tr>
+            </table>
         </div>
   </section>
     
-  <section class ="modifEquipe-section">
-        <div class ="equipe-container" id="champsForm">
-            <!-- Code javacript -->   
+  <section class ="equipe-section2">
+        <div class ="ajoutJoueur-container" id="ajoutJoueurForm">
+            <!-- Code javacript (mettre également bouton supprimer, et modifier) -->   
         </div>
   </section>
-
-  <section class ="suppEquipe-section">
-        <div class="equipe-container" id="suppForm">
-            <!-- Code javacript -->        
-        </div>
-  </section>
-
-          
+         
 
  
   <!-- jQery -->
