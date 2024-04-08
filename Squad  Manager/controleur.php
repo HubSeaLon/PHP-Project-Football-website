@@ -19,6 +19,7 @@
         $nom_menu_profil_ou_login = "Mon profil";
 
         $eq = new Equipe($_SESSION['login'], $c, $tbs); //Création Objet $eq (équipe) pour la classe Equipe
+        $eq2 = new Joueurs($_SESSION['login'], $c, $tbs);
 
         echo  "Connecté en tant que ". $_SESSION['login'];
     } else {
@@ -77,20 +78,10 @@
                 $paysEquipe = $eq->getPaysEquipe();
                 $ligue = $eq->getLigue();
 
-                if (!empty($nomEquipe) && !empty($paysEquipe) && !empty($ligue)){
-                    $gererEquipe = 'controleur.php?page=gererEquipe';
-                    $gererJoueur = 'controleur.php?page=gererJoueur';
-                    $gererStaff = 'controleur.php?page=gererStaff';
-                    $gererBlessure = 'controleur.php?page=gererBlessure';
-                    $stats = 'controleur.php?page=stats';                   
-                    $gererMatchs = 'controleur.php?page=gererMatchs';
-                    $tbs->LoadTemplate('afficherEquipe.html');
-                } else {
-                    $message = 'Veuilez créer une équipe pour utiliser cette fonctionnalité.';
-                    $tbs->LoadTemplate('message.html');
-                }
-                
+                $tbs->LoadTemplate('afficherEquipe.html');
+
                 break;
+
             case 'supprimerEquipe': 
                 $eq->idEntraineur();
                 $id_entraineur = $eq->getIdEntraineur();
@@ -116,8 +107,27 @@
                 exit;
             
             case 'gererJoueur':
-                $tbs->LoadTemplate('gererJoueur.html');
+                $eq->idEquipe();
+                $idEquipe = $eq->getIdEquipe();
+
+                $eq = $c->prepare("SELECT num_joueur, nom_joueur, prenom_joueur, nationalité, poste FROM joueur WHERE id_equipe = :id_equipe");
+                $eq->execute(['id_equipe' => $idEquipe]);
+                $data_joueurs = $eq->fetchAll();
+
+                if (empty($data_joueurs)){
+                    $message_joueur = "Vous n'avez pas de joueur";
+                } else $message_joueur = "";
+                $eq2->afficherJoueur();
                 break;
+
+            case 'ajouterJoueur':
+                if (isset($_POST['numJoueur']) && isset($_POST['nomJoueur']) && isset($_POST['prenomJoueur']) && isset($_POST['nationaliteJoueur']) && isset($_POST['posteJoueur'])){
+                    $eq2->ajouterJoueur($_POST['numJoueur'],$_POST['nomJoueur'], $_POST['prenomJoueur'],  $_POST['nationaliteJoueur'],$_POST['posteJoueur'] );       
+                    echo " réussi";   
+                }
+                echo " non réussi";
+                break;
+
             case 'gererStaff':
                 $tbs->LoadTemplate('gererStaff.html');
                 break;

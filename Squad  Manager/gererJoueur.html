@@ -68,22 +68,22 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav  ">
             <li class="nav-item">
-              <a class="nav-link" href="[onshow.gererEquipe]">Equipe</a>
+              <a class="nav-link" href="controleur.php?page=afficherEquipe">Equipe</a>
             </li>
             <li class="nav-item active">
-              <a class="nav-link" href="[onshow.gererJoueur]">Joueurs <span class="sr-only"></span></a>
+              <a class="nav-link" href="controleur.php?page=gererJoueur">Joueurs <span class="sr-only"></span></a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="[onshow.gererStaff]">Staff</a>
+              <a class="nav-link" href="controleur.php?page=gererStaff">Staff</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="[onshow.gererBlessure]">Blessure</a>
+              <a class="nav-link" href="controleur.php?page=gererBlessure">Blessure</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="[onshow.stats]">Statistiques</a>
+              <a class="nav-link" href="controleur.php?page=stats">Statistiques</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="[onshow.gererMatchs]">Matchs</a>
+              <a class="nav-link" href="controleur.php?page=gererMatchs">Matchs</a>
             </li>
     
           </ul>
@@ -98,8 +98,9 @@
   
    <!-- Créer un menu de navigation avec onshow seulement si il y a une équipe -->
   <section class ="equipe-section">
-        <div class ="joueurs-container">
+        <div class ="joueurs-container" id="joueurForm">
             <h4>Liste des joueurs</h4>
+            <p>[onshow.message_joueur]</p>
             <table>
                 <tr>
                     <th>Numéro</th>
@@ -108,23 +109,26 @@
                     <th>Nationalité</th>
                     <th>Poste</th>
                 </tr>
-
                 <tr>
-                    <td>[numero.val;block=tr]</td>
-                    <td>[nom.val;block=tr]</td>
-                    <td>[prenom.val;block=tr]</td>
-                    <td>[nationalite].val;block=tr]</td>
+                    <td>[num_joueur.val;block=tr]</td>
+                    <td>[nom_joueur.val;block=tr]</td>
+                    <td>[prenom_joueur.val;block=tr]</td>
+                    <td>[nationalité.val;block=tr]</td>
                     <td>[poste.val;block=tr]</td>
                 </tr>
+         
             </table>
+       
+
         </div>
   </section>
     
   <section class ="equipe-section2">
-        <div class ="ajoutJoueur-container" id="ajoutJoueurForm">
-            <!-- Code javacript (mettre également bouton supprimer, et modifier) -->   
+        <div class ="gererJoueur-container" id="gererJoueurForm">
+           
         </div>
   </section>
+
          
 
  
