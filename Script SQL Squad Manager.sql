@@ -19,8 +19,10 @@ CREATE TABLE IF NOT EXISTS `MATCH` (
     type_match VARCHAR(50) NOT NULL DEFAULT '',
     score_equipe INT DEFAULT NULL,
     score_equipe_adverse INT DEFAULT NULL,
+    id_entraineur smallint(5) unsigned,
 
-    PRIMARY KEY (id_match)
+    PRIMARY KEY (id_match),
+    FOREIGN KEY (id_entraineur) REFERENCES ENTRAINEUR (id_entraineur)
 );
 
 CREATE TABLE IF NOT EXISTS EQUIPE (
@@ -38,7 +40,7 @@ CREATE TABLE IF NOT EXISTS STAFF (
     id_staff smallint(5) unsigned NOT NULL AUTO_INCREMENT, 
     nom VARCHAR(50) NOT NULL DEFAULT '', 
     prenom VARCHAR(50) NOT NULL DEFAULT '', 
-    role VARCHAR(50) NOT NULL DEFAULT '',
+    role_staff VARCHAR(50) NOT NULL DEFAULT '',
     id_equipe smallint(5) unsigned NOT NULL, 
 
     PRIMARY KEY (id_staff),
@@ -46,6 +48,7 @@ CREATE TABLE IF NOT EXISTS STAFF (
 );
 
 CREATE TABLE IF NOT EXISTS JOUEUR (
+    id_joueur smallint(5) unsigned NOT NULL AUTO_INCREMENT,
     num_joueur smallint(2) NOT NULL,
     nom_joueur VARCHAR(50) NOT NULL,
     prenom_joueur VARCHAR(50) NOT NULL,
@@ -55,7 +58,7 @@ CREATE TABLE IF NOT EXISTS JOUEUR (
 
     CONSTRAINT check_num_joueur_range CHECK (num_joueur BETWEEN 1 AND 99),
 
-    PRIMARY KEY (num_joueur),
+    PRIMARY KEY (id_joueur),
     FOREIGN KEY (id_equipe) REFERENCES EQUIPE (id_equipe)
 );
 
@@ -72,36 +75,36 @@ CREATE TABLE IF NOT EXISTS STATISTIQUE_EQUIPE (
     FOREIGN KEY (id_equipe) REFERENCES EQUIPE (id_equipe)
 );
 
-CREATE TABLE BLESSURE (
+CREATE TABLE IF NOT EXISTS BLESSURE (
     id_blessure smallint(5) unsigned NOT NULL AUTO_INCREMENT,
     date_blessure DATE NOT NULL,
     type_blessure VARCHAR(50) NOT NULL DEFAULT '',
     duree_blessure INT NOT NULL DEFAULT 0,
-    num_joueur smallint(2) NOT NULL,
+    id_joueur smallint(5) unsigned NOT NULL,
 
     PRIMARY KEY (id_blessure),
-    FOREIGN KEY (num_joueur) REFERENCES JOUEUR (num_joueur)
+    FOREIGN KEY (id_joueur) REFERENCES JOUEUR (id_joueur)
 );
 
-CREATE TABLE STATISTIQUE_JOUEURS (
+CREATE TABLE IF NOT EXISTS STATISTIQUE_JOUEURS (
     id_stats_joueurs smallint(5) unsigned NOT NULL AUTO_INCREMENT,
     buts INT NOT NULL DEFAULT 0,
     passe_d INT NOT NULL DEFAULT 0,
     carton_jaune INT NOT NULL DEFAULT 0,
     carton_rouge INT NOT NULL DEFAULT 0,
     nombre_match INT NOT NULL DEFAULT 0,
-    num_joueur smallint(2) NOT NULL, 
+    id_joueur smallint(5) unsigned NOT NULL, 
 
     PRIMARY KEY (id_stats_joueurs),
-    FOREIGN KEY (num_joueur) REFERENCES JOUEUR (num_joueur)
+    FOREIGN KEY (id_joueur) REFERENCES JOUEUR (id_joueur)
 );
 
-CREATE TABLE PARTICIPATION (
-    num_joueur smallint(2) NOT NULL,
+CREATE TABLE IF NOT EXISTS PARTICIPATION (
+    id_joueur smallint(5) unsigned NOT NULL,
     id_match smallint(5) unsigned NOT NULL,
     statut VARCHAR(50) NOT NULL DEFAULT '',
 
-    PRIMARY KEY (num_joueur,id_match),
-    FOREIGN KEY (num_joueur) REFERENCES JOUEUR (num_joueur),
+    PRIMARY KEY (id_joueur, id_match),
+    FOREIGN KEY (id_joueur) REFERENCES JOUEUR (id_joueur),
     FOREIGN KEY (id_match) REFERENCES `MATCH` (id_match)
 );
