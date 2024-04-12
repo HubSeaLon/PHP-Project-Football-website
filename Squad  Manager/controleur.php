@@ -88,7 +88,21 @@
 
             case 'supprimerEquipe': 
                 $eq->idEntraineur();
+                $eq2->idEquipe();
+                $id_equipe = $eq2->getIdEquipe();
                 $id_entraineur = $eq->getIdEntraineur();
+
+                $req = $c->prepare("DELETE FROM participation WHERE id_entraineur = :id_entraineur");
+                $req->execute(['id_entraineur' => $id_entraineur]);
+
+                $req2 = $c->prepare("DELETE FROM staff WHERE id_equipe = :id_equipe");
+                $req2->execute(['id_equipe' => $id_equipe]);
+
+                $req3 = $c->prepare("DELETE FROM `match` WHERE id_entraineur = :id_entraineur");
+                $req3->execute(['id_entraineur' => $id_entraineur]);
+
+                $req4 = $c->prepare("DELETE FROM joueur WHERE id_equipe = :id_equipe");
+                $req4->execute(['id_equipe' => $id_equipe]);
                     
                 $reqSupp = $c->prepare("DELETE FROM equipe WHERE id_entraineur = :id_entraineur");
                 $reqSupp->execute(['id_entraineur' => $id_entraineur]);

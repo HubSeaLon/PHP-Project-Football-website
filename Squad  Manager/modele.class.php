@@ -223,8 +223,19 @@ class Joueurs extends Equipe {
 
     public function supprimerJoueur(){
         $this->idEquipe();
-
         $this->numJoueur = intval($_POST['numJoueur']);
+
+        $req3 = $this->pdo->prepare("SELECT id_joueur, num_joueur FROM joueur WHERE id_equipe = :id_equipe AND num_joueur = :num_joueur");
+        $req3->execute(['id_equipe' => $this->idEquipe, 'num_joueur' => $this->numJoueur]); 
+        $id_joueur = $req3->fetchColumn();
+
+        $req2 = $this->pdo->prepare("DELETE FROM participation WHERE id_joueur = :id_joueur");
+        $req2->execute(['id_joueur' => $id_joueur]);
+
+        $req4 = $this->pdo->prepare("DELETE FROM blessure WHERE id_joueur = :id_joueur");
+        $req4->execute(['id_joueur' => $id_joueur]);
+
+
         $req = $this->pdo->prepare("DELETE FROM joueur WHERE num_joueur = :num_joueur AND id_equipe = :id_equipe");
         $req->execute(['num_joueur' => $this->numJoueur, 'id_equipe' => $this->idEquipe]);
 
