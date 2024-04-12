@@ -1,4 +1,4 @@
-CREATE TABLE IF NOT EXISTS ENTRAINEUR (
+CREATE TABLE IF NOT EXISTS entraineur (
     id_entraineur smallint(5) unsigned NOT NULL AUTO_INCREMENT,
     mail VARCHAR(50) NOT NULL,
     mdp CHAR(64) NOT NULL,
@@ -6,13 +6,13 @@ CREATE TABLE IF NOT EXISTS ENTRAINEUR (
     prenom_e VARCHAR(50) NOT NULL DEFAULT '',
     datenaiss DATE NOT NULL,
     rue VARCHAR(255) NOT NULL DEFAULT '',
-    cp mediumint(5) DEFAULT '0',
+    cp mediumint(5) NOT NULL DEFAULT 00000,
     ville VARCHAR(100) NOT NULL DEFAULT '',
 
     PRIMARY KEY (id_entraineur)
 );
 
-CREATE TABLE IF NOT EXISTS `MATCH` (
+CREATE TABLE IF NOT EXISTS `match` (
     id_match smallint(5) unsigned NOT NULL AUTO_INCREMENT,
     equipe_adverse VARCHAR(50) NOT NULL DEFAULT '',
     date_match DATE NOT NULL,
@@ -23,10 +23,10 @@ CREATE TABLE IF NOT EXISTS `MATCH` (
     id_entraineur smallint(5) unsigned,
 
     PRIMARY KEY (id_match),
-    FOREIGN KEY (id_entraineur) REFERENCES ENTRAINEUR (id_entraineur)
+    FOREIGN KEY (id_entraineur) REFERENCES entraineur (id_entraineur)
 );
 
-CREATE TABLE IF NOT EXISTS EQUIPE (
+CREATE TABLE IF NOT EXISTS equipe (
     id_equipe smallint(5) unsigned NOT NULL AUTO_INCREMENT,
     nom_equipe VARCHAR(50) NOT NULL DEFAULT '',
     pays VARCHAR(100) NOT NULL DEFAULT '',
@@ -34,10 +34,10 @@ CREATE TABLE IF NOT EXISTS EQUIPE (
     id_entraineur smallint(5) unsigned NOT NULL,
 
     PRIMARY KEY (id_equipe),
-    FOREIGN KEY (id_entraineur) REFERENCES ENTRAINEUR (id_entraineur)
+    FOREIGN KEY (id_entraineur) REFERENCES entraineur (id_entraineur)
 );
 
-CREATE TABLE IF NOT EXISTS STAFF (
+CREATE TABLE IF NOT EXISTS staff (
     id_staff smallint(5) unsigned NOT NULL AUTO_INCREMENT, 
     nom VARCHAR(50) NOT NULL DEFAULT '', 
     prenom VARCHAR(50) NOT NULL DEFAULT '', 
@@ -45,10 +45,10 @@ CREATE TABLE IF NOT EXISTS STAFF (
     id_equipe smallint(5) unsigned NOT NULL, 
 
     PRIMARY KEY (id_staff),
-    FOREIGN KEY (id_equipe) REFERENCES EQUIPE (id_equipe)
+    FOREIGN KEY (id_equipe) REFERENCES equipe (id_equipe)
 );
 
-CREATE TABLE IF NOT EXISTS JOUEUR (
+CREATE TABLE IF NOT EXISTS joueur (
     id_joueur smallint(5) unsigned NOT NULL AUTO_INCREMENT,
     num_joueur smallint(2) NOT NULL,
     nom_joueur VARCHAR(50) NOT NULL,
@@ -60,10 +60,10 @@ CREATE TABLE IF NOT EXISTS JOUEUR (
     CONSTRAINT check_num_joueur_range CHECK (num_joueur BETWEEN 1 AND 99),
 
     PRIMARY KEY (id_joueur),
-    FOREIGN KEY (id_equipe) REFERENCES EQUIPE (id_equipe)
+    FOREIGN KEY (id_equipe) REFERENCES equipe (id_equipe)
 );
 
-CREATE TABLE IF NOT EXISTS STATISTIQUE_EQUIPE (
+CREATE TABLE IF NOT EXISTS statistiques_equipe (
     id_stats_equipe smallint(5) unsigned NOT NULL AUTO_INCREMENT,
     victoires INT NOT NULL DEFAULT 0,
     defaites INT NOT NULL DEFAULT 0,
@@ -73,10 +73,10 @@ CREATE TABLE IF NOT EXISTS STATISTIQUE_EQUIPE (
     id_equipe smallint(5) unsigned NOT NULL,
 
     PRIMARY KEY (id_stats_equipe),
-    FOREIGN KEY (id_equipe) REFERENCES EQUIPE (id_equipe)
+    FOREIGN KEY (id_equipe) REFERENCES equipe (id_equipe)
 );
 
-CREATE TABLE IF NOT EXISTS BLESSURE (
+CREATE TABLE IF NOT EXISTS blessure(
     id_blessure smallint(5) unsigned NOT NULL AUTO_INCREMENT,
     date_blessure DATE NOT NULL,
     type_blessure VARCHAR(50) NOT NULL DEFAULT '',
@@ -84,10 +84,10 @@ CREATE TABLE IF NOT EXISTS BLESSURE (
     id_joueur smallint(5) unsigned NOT NULL,
 
     PRIMARY KEY (id_blessure),
-    FOREIGN KEY (id_joueur) REFERENCES JOUEUR (id_joueur)
+    FOREIGN KEY (id_joueur) REFERENCES joueur (id_joueur)
 );
 
-CREATE TABLE IF NOT EXISTS STATISTIQUE_JOUEURS (
+CREATE TABLE IF NOT EXISTS statistiques_joueurs (
     id_stats_joueurs smallint(5) unsigned NOT NULL AUTO_INCREMENT,
     buts INT NOT NULL DEFAULT 0,
     passe_d INT NOT NULL DEFAULT 0,
@@ -97,17 +97,17 @@ CREATE TABLE IF NOT EXISTS STATISTIQUE_JOUEURS (
     id_joueur smallint(5) unsigned NOT NULL, 
 
     PRIMARY KEY (id_stats_joueurs),
-    FOREIGN KEY (id_joueur) REFERENCES JOUEUR (id_joueur)
+    FOREIGN KEY (id_joueur) REFERENCES joueur (id_joueur)
 );
 
-CREATE TABLE IF NOT EXISTS PARTICIPATION (
+CREATE TABLE IF NOT EXISTS participation (
     id_joueur smallint(5) unsigned NOT NULL,
     id_match smallint(5) unsigned NOT NULL,
     id_entraineur smallint(5) unsigned NOT NULL,
     statut VARCHAR(50) NOT NULL DEFAULT '',
 
     PRIMARY KEY (id_joueur, id_match),
-    FOREIGN KEY (id_joueur) REFERENCES JOUEUR (id_joueur),
-    FOREIGN KEY (id_match) REFERENCES `MATCH` (id_match),
-    FOREIGN KEY (id_entraineur) REFERENCES ENTRAINEUR (id_entraineur)
+    FOREIGN KEY (id_joueur) REFERENCES joueur (id_joueur),
+    FOREIGN KEY (id_match) REFERENCES `match` (id_match),
+    FOREIGN KEY (id_entraineur) REFERENCES entraineur (id_entraineur)
 );
