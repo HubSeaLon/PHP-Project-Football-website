@@ -68,22 +68,13 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav">
             <li class="nav-item">
-              <a class="nav-link" href="controleur.php?page=afficherEquipe">Equipe</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="controleur.php?page=gererJoueur">Joueurs <span class="sr-only"></span></a>
-            </li>
-            <li class="nav-item active">
-              <a class="nav-link" href="controleur.php?page=gererStaff">Staff</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="controleur.php?page=gererBlessure">Blessure</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="controleur.php?page=stats">Statistiques</a>
-            </li>
+                <a class="nav-link" href="controleur.php?page=gererEquipe">Gérer son équipe</a>
+              </li>
             <li class="nav-item">
               <a class="nav-link" href="controleur.php?page=gererMatchs">Matchs</a>
+            </li>
+            <li class="nav-item active">
+              <a class="nav-link" href="controleur.php?page=participation">Convocation</a>
             </li>
     
           </ul>
@@ -97,31 +88,77 @@
 
   
    <!-- Créer un menu de navigation avec onshow seulement si il y a une équipe -->
-  <section class ="staff-section">
-        <div class ="staff-container" id="staffForm">
-            <h4>Liste du staff</h4>
-            <p>[onshow.message_staff]</p>
+  <section class ="match-section">
+        <div class ="match-container" id="match2Form">
+            <h4>Liste des matchs</h4>
+            <p>[onshow.message_match]</p>
             <table>
                 <tr>
-                    <th>Numero</th>
-                    <th>Nom</th>
-                    <th>Prénom</th>
-                    <th>Role</th>
+                    <th>Numéro</th>
+                    <th>Equipe adverse</th>
+                    <th>Date</th>
+                    <th>Type match</th>
+                    <th>Score équipe</th>
+                    <th>Score équipe adverse</th>
+                    <th>Statut match</th>
                 </tr>
                 <tr>
-                    <td>[id_staff.val;block=tr]</td>
-                    <td>[nom_staff.val;block=tr]</td>
-                    <td>[prenom_staff.val;block=tr]</td>
-                    <td>[role_staff.val;block=tr]</td>
+                    <td>[id_match.val;block=tr]</td>
+                    <td>[equipe_adverse.val;block=tr]</td>
+                    <td>[date_match.val;block=tr]</td>
+                    <td>[type_match.val;block=tr]</td>
+                    <td>[score_equipe.val;block=tr]</td>
+                    <td>[score_equipe_adverse.val;block=tr]</td>
+                    <td>[statut_match.val;block=tr]</td>
                 </tr>
             </table>
-       
+        </div>
 
+
+        <div class ="joueurs-container" id="joueurForm2">
+            <h4>Liste des joueurs</h4>
+            <p>[onshow.message_joueur]</p>
+            <table>
+                <tr>
+                    <th>ID</th>
+                    <th>Numéro</th>
+                    <th>Nom</th>
+                    <th>Prénom</th>
+                    <th>Nationalité</th>
+                    <th>Poste</th>
+                </tr>
+                <tr>
+                    <td>[id_joueur.val;block=tr]</td>
+                    <td>[num_joueur.val;block=tr]</td>
+                    <td>[nom_joueur.val;block=tr]</td>
+                    <td>[prenom_joueur.val;block=tr]</td>
+                    <td>[nationalité.val;block=tr]</td>
+                    <td>[poste.val;block=tr]</td>
+                </tr>
+            </table>
+        </div>
+
+
+        <div class = "participation-section" id="convocForm">
+            <h4>Liste des convocation par match</h4>
+            <p>[onshow.message_participation]</p>
+            <table>
+                <tr>
+                    <th>Numéro joueur</th>
+                    <th>Numéro Match</th>
+                    <th>Statut</th>
+                </tr>
+                <tr>
+                    <td>[id_joueur2.val;block=tr]</td>
+                    <td>[id_match2.val;block=tr]</td>
+                    <td>[statut.val;block=tr]</td>
+                </tr>
+            </table>     
         </div>
   </section>
     
-  <section class ="staff-section2">
-        <div class ="gererStaff-container" id="gererStaffForm">
+  <section class ="match-section2">
+        <div class ="convoc-container" id="gererConvocForm">
            
         </div>
   </section>
