@@ -19,6 +19,7 @@ CREATE TABLE IF NOT EXISTS `MATCH` (
     type_match VARCHAR(50) NOT NULL DEFAULT '',
     score_equipe INT DEFAULT NULL,
     score_equipe_adverse INT DEFAULT NULL,
+    statut_match VARCHAR(50) NOT NULL DEFAULT 'Convoquer des joueurs (pas assez)',
     id_entraineur smallint(5) unsigned,
 
     PRIMARY KEY (id_match),
@@ -102,9 +103,11 @@ CREATE TABLE IF NOT EXISTS STATISTIQUE_JOUEURS (
 CREATE TABLE IF NOT EXISTS PARTICIPATION (
     id_joueur smallint(5) unsigned NOT NULL,
     id_match smallint(5) unsigned NOT NULL,
+    id_entraineur smallint(5) unsigned NOT NULL,
     statut VARCHAR(50) NOT NULL DEFAULT '',
 
     PRIMARY KEY (id_joueur, id_match),
     FOREIGN KEY (id_joueur) REFERENCES JOUEUR (id_joueur),
-    FOREIGN KEY (id_match) REFERENCES `MATCH` (id_match)
+    FOREIGN KEY (id_match) REFERENCES `MATCH` (id_match),
+    FOREIGN KEY (id_entraineur) REFERENCES ENTRAINEUR (id_entraineur)
 );
