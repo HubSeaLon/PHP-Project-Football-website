@@ -52,6 +52,7 @@
 
 
   <!-- header section strats -->
+
   <header class="header_section">
     <div class="container-fluid">
       <nav class="navbar navbar-expand-lg custom_nav-container ">
@@ -97,12 +98,13 @@
 
   
    <!-- Créer un menu de navigation avec onshow seulement si il y a une équipe -->
+<div class="tableau-section">
   <section class ="equipe-section">
         <div class ="equipe-container">
           <h2>Mon équipe :</h2>
-          <p>[onshow.nomEquipe]</p>
-          <p>[onshow.paysEquipe]</p>
-          <p>[onshow.ligue]</p>
+          <p><b>Nom</b>: [onshow.nomEquipe]</p>
+          <p><b>Pays</b> : [onshow.paysEquipe]</p>
+          <p><b>Ligue</b> : [onshow.ligue]</p>
 
           <button id="modifierEquipe" name="modifier" onclick="modifierEquipe()">Modifier le nom</button>
           <button id="supprimerEquipe" name="supprimer" onclick="supprimerEquipe()">Supprimer l'équipe</button>
@@ -120,6 +122,7 @@
             <!-- Code javacript -->        
         </div>
   </section>
+</div>
 
           
 

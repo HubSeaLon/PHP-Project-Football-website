@@ -18,12 +18,13 @@
         $menu_profil_ou_login = "controleur.php?page=profil";
         $nom_menu_profil_ou_login = "Mon profil";
 
-        $eq = new Equipe($_SESSION['login'], $c, $tbs); //Création des objets
+        $eq = new Equipe($_SESSION['login'], $c, $tbs); //Création des objets pour chaque classe qui héritent toute de Equipe 
         $eq2 = new Joueurs($_SESSION['login'], $c, $tbs);
         $eq3 = new Staff($_SESSION['login'], $c, $tbs);
         $eq4 = new Blessure($_SESSION['login'], $c, $tbs);
         $eq5 = new Matchs($_SESSION['login'], $c, $tbs);
         $eq6 = new Participation($_SESSION['login'], $c, $tbs);
+        $eq7 = new Profil($_SESSION['login'], $c, $tbs);
 
         echo  "Connecté en tant que ". $_SESSION['login'];
     } else {
@@ -34,12 +35,12 @@
     // Fin gestion session
 
 
-    // Navigation des pages selon l'url  
+    // Navigation du nom des pages selon l'url  
     if(isset($_GET['page'])){
         $page = $_GET['page'];
         switch ($page){
 
-            // Cas des pages sans traitements serveur
+            // Cas des pages sans traitements dynamique
             case 'index':
                 $tbs->LoadTemplate('index.html');
                 break;
@@ -57,7 +58,7 @@
             // Cas Gestion Equipe :
             case 'gererEquipe': 
                 if(isset($_SESSION['login'])){          // Vérifier si session                     
-                    $eq->verif();  // Appel fonction verif pour savoir existance d'une équipe 
+                    $eq->verif();  // Appel fonction verif pour savoir existance d'une équipe si oui affichage de l'équipe 
 
                     // Cas si pas d'équipe 
                     $messageEquipe = $eq->getMessage();  
@@ -65,7 +66,7 @@
                     
                     $tbs->LoadTemplate('gererEquipe.html');
 
-                } else $tbs->LoadTemplate('login.html');
+                } else $tbs->LoadTemplate('login.html'); // SI pas de session -> page se connecter
                 break;
 
             case 'creerEquipe':         
@@ -92,6 +93,8 @@
                 $id_equipe = $eq2->getIdEquipe();
                 $id_entraineur = $eq->getIdEntraineur();
 
+                // Suppression de l'équipe présente dans toute les tables
+
                 $req = $c->prepare("DELETE FROM participation WHERE id_entraineur = :id_entraineur");
                 $req->execute(['id_entraineur' => $id_entraineur]);
 
@@ -114,7 +117,7 @@
                 $eq->idEntraineur();
                   
                 $id_entraineur = $eq->getIdEntraineur();
-                $eq = $c->prepare("UPDATE equipe SET nom_equipe = :nom_equipe WHERE id_entraineur = :id_entraineur");
+                $eq = $c->prepare("UPDATE equipe SET nom_equipe = :nom_equipe WHERE id_entraineur = :id_entraineur"); // REquete qui modifie les données de l'équipe
                 $nomEquipe = $_POST['nomEquipe']; 
                 $eq->execute([
                     'nom_equipe' => $nomEquipe,
@@ -136,12 +139,12 @@
                 if (empty($data_joueurs)){
                     $message_joueur = "Vous n'avez pas de joueur";
                 } else $message_joueur = "";
-                $eq2->afficherJoueur();
+                $eq2->afficherJoueur(); 
                 break;
 
             case 'ajouterJoueur':
                 if (isset($_POST['numJoueur']) && isset($_POST['nomJoueur']) && isset($_POST['prenomJoueur']) && isset($_POST['nationaliteJoueur']) && isset($_POST['posteJoueur'])){
-                    $eq2->ajouterJoueur($_POST['numJoueur'],$_POST['nomJoueur'], $_POST['prenomJoueur'],  $_POST['nationaliteJoueur'],$_POST['posteJoueur'] );              
+                    $eq2->ajouterJoueur($_POST['numJoueur'],$_POST['nomJoueur'], $_POST['prenomJoueur'],  $_POST['nationaliteJoueur'],$_POST['posteJoueur'] ); // Appel fonction ajouterJoueur              
                 }
            
                 break;
@@ -156,7 +159,7 @@
                 $eq->idEquipe();
                 $idEquipe = $eq->getIdEquipe();
 
-                $eq = $c->prepare("SELECT * FROM staff WHERE id_equipe = :id_equipe");
+                $eq = $c->prepare("SELECT * FROM staff WHERE id_equipe = :id_equipe"); // vérifier l'user possède du staff
                 $eq->execute(['id_equipe' => $idEquipe]);
                 $data_staff = $eq->fetchAll();
 
@@ -168,9 +171,9 @@
                 break;
             
             case 'ajouterStaff':
-                if (empty($_POST['numStaff'])){
-                    $eq3->ajouterStaff($_POST['nomStaff'], $_POST['prenomStaff'], $_POST['roleStaff']);
-                } else $eq3->modifierStaff($_POST['numStaff'], $_POST['nomStaff'], $_POST['prenomStaff'], $_POST['roleStaff']);
+                if (empty($_POST['numStaff'])){ // Si l'user met un numéro de staff 
+                    $eq3->ajouterStaff($_POST['nomStaff'], $_POST['prenomStaff'], $_POST['roleStaff']); // Si non, on ajoute un staff à l'équipe 
+                } else $eq3->modifierStaff($_POST['numStaff'], $_POST['nomStaff'], $_POST['prenomStaff'], $_POST['roleStaff']); // Si oui, on modifie les données lié au num du staff
                 break;
             
             case 'supprimerStaff':
@@ -288,19 +291,16 @@
                 
                 break;
 
+            // Fin participation 
 
+            // Gerer stats:
+            case 'stats':
+                $message_stats = "Les statistiques ne sont pas encore implémentés. Désolé ! :(";
+                $tbs->LoadTemplate("stats.html");
 
+                break;
 
-
-
-
-
-
-
-
-
-
-
+            // Fin stats
             // Fin Gestion Equipe 
                     
             // Gestion Login / Inscription 
@@ -321,7 +321,20 @@
                 break;
             
             case 'profil':
+                $eq7->preparerProfil();
+                $id = $eq7->getId(); // récupération des données de l'utilisateur 
+                $nom_entraineur = $eq7->getNom();
+                $prenom_entraineur = $eq7->getPrenom();
+                $date_naissance_entraineur = $eq7->getDateN();
+                $rue = $eq7->getRue();
+                $cp = $eq7->getCP();
+                $ville = $eq7->getVille();
+
                 $tbs->LoadTemplate('profil.html');
+                break;
+
+            case 'modifierProfil':
+                $eq7->modifierProfil($_POST['pnom'],$_POST['pprenom'],$_POST['pnaiss'],$_POST['prue'],$_POST['pcp'],$_POST['pville']);
                 break;
 
             case 'deconnexion':

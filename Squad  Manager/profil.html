@@ -64,53 +64,41 @@
     <!-- login section-->
     <section class ="login-section">
         <div class ="form-container">
-          <form action="controleur.php?page=login" method="post">
+          <form action="controleur.php?page=modifierProfil" method="post">
             <fieldset>
-              <legend> <b>Mes informations personnelles</b> </legend>
+              <legend> <b>Modifier ou ajouter mes informations personnelles</b> </legend>
                 <div class="login-container">
-                  <label for="identifiant" id="identifiant"><b>Identifiant</b></label>
-                  <input type="text" id="identifiant" name="plogin" value="SQL pour récuperer l'identifiant" required>  
+                  <label for="identifiant" id="identifiant"><b>Identifiant : [onshow.id]</b></label> 
                
-                  <label for="passwd" id="mdp"><b>Mot de passe actuel</b></label>
-                  <input type="password" id="id_pwd" name="ppasswd" value="SQL pour récuperer" required>
-
-                  <label for="passwd" id="mdp"><b>Nouveau mot de passe</b></label>
-                  <input type="password" id="id_pwd" name="ppasswd" placeholder="Votre nouveau mot de passe" minlength="8" required>
-
-                  <label for="verif" id="verif"><b> Vérification Mot de passe </b></label>
-                  <input type="password" id="verif" name="pverif" placeholder="Rentrez meme mot de passe" minlength="8" required>
-
-                  <label for="login" id="login"><b>Nom</b></label>
+                  <label for="login" id="login"><b>Nom : [onshow.nom_entraineur]</b></label>
                   <input type="text" id="id_nom" name="pnom" placeholder="Votre Nom" required>  
 
-                  <label for="login" id="login"><b>Prenom</b></label>
+                  <label for="login" id="login"><b>Prenom : [onshow.prenom_entraineur]</b></label>
                   <input type="text" id="id_prenom" name="pprenom" placeholder="Votre prénom" required>  
 
-                  <label for="login" id="login"><b>Date de naissance</b></label>
+                  <label for="login" id="login"><b>Date de naissance : [onshow.date_naissance_entraineur]</b></label>
                   <input type="date" id="id_naiss" name="pnaiss" placeholder="Votre date de naissance" required>  
 
-                  <label for="login" id="login"><b>Numero de rue</b></label>
-                  <input type="number" id="id_num_rue" name="pnum_rue" placeholder="Votre numero de rue" required>  
-
-                  <label for="login" id="login"><b>Rue</b></label>
+                  <label for="login" id="login"><b>Rue : [onshow.rue]</b></label>
                   <input type="text" id="id_rue" name="prue" placeholder="Le nom de votre rue" required>  
 
-                  <label for="login" id="login"><b>cp</b></label>
-                  <input type="number" id="id_cp" name="pcp" placeholder="Votre code postal" required>  
+                  <label for="login" id="login"><b>cp : [onshow.cp]</b></label>
+                  <input type="text" id="id_cp" name="pcp" placeholder="Votre code postal" pattern="\d{5}" title="Entrez un code postal valide (5 chiffres)" required>
 
-                  <label for="login" id="login"><b>Ville</b></label>
+                  <label for="login" id="login"><b>Ville : [onshow.ville]</b></label>
                   <input type="text" id="id_ville" name="pville" placeholder="Votre Ville" required>  
          
                   <input type="submit" id="id_val" value="Valider">
 
-                 
+                  
                 </div>
             </fieldset>
           </form>
+          <a href="controleur.php?page=deconnexion"><button>Se déconnecter</button></a>
         </div>
     </section> 
 
-    <a href="controleur.php?page=deconnexion"><button>Se déconnecter</button></a>
+
 
           
 

@@ -106,7 +106,7 @@ class Equipe {
                 $this->pays[] = $ligne['pays'];
                 $this->ligue[] = $ligne['ligue'];
             }
-            
+      
         } else {
             $this->message = "Erreur : Pas d'équipe";
             header("Location: controleur.php?page=index");
@@ -780,14 +780,99 @@ class Participation extends Matchs {
 }
 
 
+class Profil extends Equipe {
+
+    private $id;
+    private $nom, $prenom;
+    private $dateN;
+    private $rue, $ville;
+    private $cp;
+
+
+    public function preparerProfil(){
+        $this->idEntraineur();
+
+        $req = $this->pdo->prepare("SELECT id_entraineur, nom_e, prenom_e, datenaiss, rue, cp, ville FROM entraineur WHERE id_entraineur = :id_entraineur");
+        $req->execute(['id_entraineur' => $this->id_entraineur]);
+        $data_profil = $req->fetchAll();
+
+        $this->id = array();
+        $this->nom = array();
+        $this->prenom = array();
+        $this->dateN = array();
+        $this->rue= array();
+        $this->cp = array();
+        $this->ville = array();
+  
+        foreach($data_profil as $ligne){      
+            $this->id[] = $ligne['id_entraineur'];
+            $this->nom[] = $ligne['nom_e'];
+            $this->prenom[]= $ligne['prenom_e'];
+            $this->dateN[] = $ligne['datenaiss'];
+            $this->rue[] = $ligne['rue'];
+            $this->cp[] = $ligne['cp'];
+            $this->ville[] = $ligne['ville'];
+        }
+      
+    }
+
+    public function getId(){
+        $this->idEntraineur();
+        return $this->id_entraineur;
+    }
+
+    public function getNom(){
+        return $this->nom[0];
+    }
+
+    public function getPrenom(){
+        return $this->prenom[0];
+    }
+
+    public function getDateN(){
+        return $this->dateN[0];
+    }
+
+    public function getRue(){
+        return $this->rue[0];
+    }
+
+    public function getCP(){
+        return $this->cp[0];
+    }
+
+    public function getVille(){
+        return $this->ville[0];
+    }
+
+    public function modifierProfil($p_nom, $p_prenom, $p_date, $p_rue, $p_cp, $p_ville){
+        $this->idEntraineur();
+        $req = $this->pdo->prepare("UPDATE entraineur SET nom_e = :nom_e,
+        prenom_e = :prenom_e, datenaiss = :datenaiss, rue = :rue, cp = :cp, ville = :ville
+        WHERE id_entraineur = :id_entraineur");
+        $req->execute([
+            'nom_e' => $p_nom,
+            'prenom_e' => $p_prenom,
+            'datenaiss' => $p_date,
+            'rue' => $p_rue,
+            'cp' => $p_cp,
+            'ville' => $p_ville,
+            'id_entraineur' => $this->id_entraineur
+        ]);
+
+        header("Location: controleur.php?page=profil");
+    }
+}
+
+
 
 
 class StatsEquipe extends Matchs {
-
+    // Pas le temps
 }
 
 class StatsJoueurs extends Participation {
-
+    // Pas le temps
 }
 
 
